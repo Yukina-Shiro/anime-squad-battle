@@ -8,7 +8,7 @@
 
 ## 📝 Résumé du projet
 
-**Anime Squad Battle** est une application web interactive de type "Gacha" (collection de cartes) combinée à un jeu de gestion d'équipe stratégique, fortement inspirée du mode *Ultimate Team* de la franchise FIFA, mais transposée dans l'univers des animés (Naruto, Dragon Ball, One Piece, Jujutsu Kaisen, etc.).
+**Anime Squad Battle** est une application web interactive de type "Gacha" (collection de cartes) combinée à un jeu de gestion d'équipe stratégique, fortement inspirée du mode *Ultimate Team* de la franchise FIFA, mais transposée dans l'univers des animes (Naruto, Dragon Ball, One Piece, Jujutsu Kaisen, etc.).
 
 Le joueur commence avec un pécule de départ, invoque des personnages en ouvrant des packs, compose la meilleure formation possible sur le terrain en respectant les rôles, et affronte d'autres joueurs pour gagner des pièces (`Coins`) et améliorer son équipe.
 
