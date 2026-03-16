@@ -1,0 +1,74 @@
+/* =========================================
+   css/animations.css - DYNAMISME MANGA
+   ========================================= */
+
+/* Tremblement sec pour l'ouverture de pack */
+@keyframes shake {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    20% { transform: translate(-4px, 4px) rotate(-2deg); }
+    40% { transform: translate(4px, -4px) rotate(2deg); }
+    60% { transform: translate(-4px, -4px) rotate(-2deg); }
+    80% { transform: translate(4px, 4px) rotate(2deg); }
+}
+
+.anim-shake {
+    animation: shake 0.3s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+/* Apparition de la carte style "Matérialisation holographique" */
+@keyframes materialize {
+    0% { 
+        opacity: 0; 
+        transform: scale(0.2) translateY(100px); 
+        filter: brightness(5) blur(10px);
+    }
+    50% { 
+        opacity: 1; 
+        filter: brightness(2) blur(2px);
+    }
+    100% { 
+        opacity: 1; 
+        transform: scale(1) translateY(0); 
+        filter: brightness(1) blur(0);
+    }
+}
+
+.anim-reveal {
+    animation: materialize 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+/* Lignes de vitesse type Manga en arrière-plan */
+.manga-speedlines {
+    position: absolute;
+    inset: -50%; /* Dépasse largement pour couvrir lors de la rotation */
+    background: repeating-conic-gradient(
+        from 0deg at 50% 50%,
+        transparent 0deg,
+        transparent 5deg,
+        rgba(255, 255, 255, 0.05) 5.1deg,
+        rgba(255, 255, 255, 0.05) 5.5deg
+    );
+    pointer-events: none;
+    animation: spin 120s linear infinite;
+    z-index: 0;
+}
+
+@keyframes spin {
+    100% { transform: rotate(360deg); }
+}
+
+/* Pulsation de puissance (pour les Coins et le Team Power) */
+@keyframes power-pulse {
+    0%, 100% { text-shadow: 0 0 10px currentColor; transform: scale(1); }
+    50% { text-shadow: 0 0 30px currentColor, 0 0 50px currentColor; transform: scale(1.05); }
+}
+
+.glow-gold {
+    animation: power-pulse 2s infinite;
+    color: var(--neon-yellow) !important;
+}
+
+.glow-red {
+    animation: power-pulse 1.5s infinite;
+    color: var(--neon-pink) !important;
+}

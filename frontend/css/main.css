@@ -1,0 +1,610 @@
+/* =========================================
+   css/main.css - HUD FUTURISTE & ANIME
+   ========================================= */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;600;700&display=swap');
+
+:root {
+    /* Palette Néon "Anime / Cyberpunk" */
+    --neon-cyan: #00f0ff;
+    --neon-purple: #b026ff;
+    --neon-pink: #ff003c;
+    --neon-yellow: #fcee0a;
+    --dark-bg: #05050a;
+    --hud-bg: rgba(10, 15, 25, 0.75);
+    --hud-border: rgba(0, 240, 255, 0.2);
+}
+
+/* --- LE FOND GLOBAL DU JEU --- */
+body {
+    font-family: 'Rajdhani', sans-serif;
+    background-color: var(--dark-bg);
+    background-image: 
+        linear-gradient(to bottom, rgba(5, 5, 10, 0.3), rgba(5, 5, 10, 0.6)),
+        url('../assets/images/bg-arena.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: white;
+}
+
+/* --- EFFET ÉCRAN HOLOGRAPHIQUE GLOBAL (Scanlines) --- */
+body::after {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.15) 50%);
+    background-size: 100% 4px;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+.font-orbitron { font-family: 'Orbitron', sans-serif; }
+
+/* --- REDESIGN DES PANNEAUX (HUD Style) --- */
+.bg-slate-900\/60, .bg-slate-900\/80 {
+    background: var(--hud-bg) !important;
+    border: 1px solid var(--hud-border) !important;
+    border-radius: 0 !important;
+    clip-path: polygon(0 0, calc(100% - 25px) 0, 100% 25px, 100% 100%, 25px 100%, 0 calc(100% - 25px));
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.05), inset 0 0 30px rgba(0, 240, 255, 0.05) !important;
+    backdrop-filter: blur(10px) !important;
+}
+
+/* --- BOUTONS CYBERPUNK --- */
+button[type="submit"], button[id^="btn-"], .btn-buy-pack {
+    border-radius: 0 !important;
+    clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% 100%, 15px 100%, 0 calc(100% - 15px));
+    background: linear-gradient(45deg, var(--neon-pink) 0%, #8a0020 100%) !important;
+    border: none !important;
+    color: white !important;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
+    box-shadow: -4px 0px 0px var(--neon-cyan) !important;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+button[type="submit"]:hover, button[id^="btn-"]:hover, .btn-buy-pack:hover {
+    background: linear-gradient(45deg, var(--neon-cyan) 0%, #005f8a 100%) !important;
+    box-shadow: -4px 0px 0px var(--neon-yellow), 0 0 20px var(--neon-cyan) !important;
+    transform: scale(1.02) translateX(4px);
+}
+
+/* --- LA NAVIGATION --- */
+header {
+    background: rgba(5, 5, 10, 0.9) !important;
+    border-bottom: 2px solid var(--neon-cyan) !important;
+    box-shadow: 0 5px 20px rgba(0, 240, 255, 0.1) !important;
+}
+
+.nav-btn {
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    border-radius: 0 !important;
+    transform: skewX(-15deg);
+    padding: 0.5rem 1.5rem !important;
+}
+.nav-btn > * {
+    transform: skewX(15deg);
+}
+
+.nav-active {
+    background: rgba(0, 240, 255, 0.1) !important;
+    color: var(--neon-cyan) !important;
+    text-shadow: 0 0 10px var(--neon-cyan);
+    border-bottom: none !important;
+}
+.nav-active::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; width: 100%; height: 3px;
+    background: var(--neon-cyan);
+    box-shadow: 0 -2px 10px var(--neon-cyan);
+}
+
+/* --- LE TERRAIN DE FOOT HOLOGRAPHIQUE --- */
+.bg-cyber-pitch {
+    background-color: rgba(3, 10, 20, 0.85) !important;
+    background-image: 
+        /* Ligne médiane (Violette) fixée à 100px du haut */
+        linear-gradient(to bottom, transparent 98px, var(--neon-purple) 100px, transparent 102px),
+        /* Rond central (Violet) fixé à 100px */
+        radial-gradient(circle at 50% 100px, transparent 140px, var(--neon-purple) 142px, transparent 144px),
+        /* Quadrillage Cyberpunk */
+        linear-gradient(0deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px) !important;
+    
+    background-attachment: local, local, local, local !important;
+    background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px !important;
+    box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.8) !important;
+    border: 1px solid var(--neon-cyan) !important;
+}
+
+/* Filet de but Néon */
+.goal-net {
+    position: absolute;
+    width: 240px; height: 120px;
+    bottom: -30px; left: 50%;
+    transform: translateX(-50%) perspective(100px) rotateX(30deg);
+    background-image: 
+        repeating-linear-gradient(45deg, var(--neon-cyan) 0, var(--neon-cyan) 2px, transparent 2px, transparent 15px),
+        repeating-linear-gradient(-45deg, var(--neon-cyan) 0, var(--neon-cyan) 2px, transparent 2px, transparent 15px);
+    opacity: 0.4;
+    border: 4px solid var(--neon-cyan);
+    border-bottom: none;
+    box-shadow: 0 0 20px var(--neon-cyan), inset 0 0 20px var(--neon-cyan);
+    z-index: 0;
+}
+
+/* --- STYLES SPÉCIAUX POUR LE LOGIN (VS SCREEN) --- */
+.login-split-left {
+    background-image: 
+        linear-gradient(to right, rgba(0,0,0,0.9) 0%, rgba(0,240,255,0.2) 100%),
+        url('../assets/images/login-hero.png');
+    background-size: cover;
+    background-position: center top;
+}
+.login-split-right {
+    background-image: 
+        linear-gradient(to left, rgba(0,0,0,0.9) 0%, rgba(255,0,60,0.2) 100%),
+        url('../assets/images/login-rival.png');
+    background-size: cover;
+    background-position: center top;
+}
+.vs-badge {
+    text-shadow: 0 0 20px var(--neon-yellow), 0 0 40px var(--neon-pink);
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    background: rgba(10, 15, 25, 0.9);
+    border: 2px solid var(--neon-yellow);
+}
+
+/* --- TABS DU MARKET --- */
+.market-tab {
+    clip-path: polygon(15px 0, 100% 0, calc(100% - 15px) 100%, 0 100%);
+    border-radius: 0 !important;
+}
+.tab-active {
+    background: var(--neon-cyan) !important;
+    color: black !important;
+    box-shadow: 0 0 20px var(--neon-cyan) !important;
+}
+.tab-inactive {
+    background: #1a1a24 !important;
+    color: #4b5563 !important;
+    border: 1px solid var(--neon-cyan);
+}
+.tab-inactive:hover {
+    color: var(--neon-cyan) !important;
+}
+
+/* Scrollbar Cyberpunk */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--dark-bg); }
+::-webkit-scrollbar-thumb { background: var(--neon-purple); border-radius: 0px; }
+::-webkit-scrollbar-thumb:hover { background: var(--neon-cyan); }
+
+/* =========================================
+   SCOUTER DBZ (Détecteur de Puissance)
+   ========================================= */
+.scouter-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+    transform: skewX(-5deg); /* Léger angle dynamique typique des animes */
+}
+
+/* L'écran holographique (La Visière) */
+.scouter-visor {
+    position: relative;
+    z-index: 10;
+    padding: 0.5rem 2rem 0.5rem 1.5rem;
+    backdrop-filter: blur(4px);
+    border: 2px solid;
+    border-radius: 20px 0 0 20px; /* Arrondi à gauche, plat à droite vers l'oreille */
+    min-width: 180px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    overflow: hidden;
+}
+
+/* Grille de ciblage incrustée sur la visière */
+.scouter-visor::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: 
+        linear-gradient(currentColor 1px, transparent 1px),
+        linear-gradient(90deg, currentColor 1px, transparent 1px);
+    background-size: 12px 12px;
+    opacity: 0.15;
+    pointer-events: none;
+}
+
+/* Coins de ciblage façon viseur */
+.scouter-visor::after {
+    content: '';
+    position: absolute;
+    top: 8px; left: 8px;
+    width: 12px; height: 12px;
+    border-top: 2px solid currentColor;
+    border-left: 2px solid currentColor;
+}
+
+/* VARIANTE VERTE (Page Équipe) */
+.scouter-green .scouter-visor {
+    background-color: rgba(34, 197, 94, 0.2);
+    border-color: #22c55e;
+    color: #4ade80;
+    box-shadow: 0 0 20px rgba(34, 197, 94, 0.4), inset 0 0 20px rgba(34, 197, 94, 0.4);
+}
+.scouter-green .scouter-value { text-shadow: 0 0 15px #22c55e; }
+
+/* VARIANTE ROUGE (Page Match) */
+.scouter-red .scouter-visor {
+    background-color: rgba(239, 68, 68, 0.2);
+    border-color: #ef4444;
+    color: #f87171;
+    box-shadow: 0 0 20px rgba(239, 68, 68, 0.4), inset 0 0 20px rgba(239, 68, 68, 0.4);
+}
+.scouter-red .scouter-value { text-shadow: 0 0 15px #ef4444; }
+
+/* La structure mécanique (Oreillette Blanche/Grise) */
+.scouter-earpiece {
+    position: relative;
+    z-index: 20;
+    margin-left: -15px; /* Chevauche légèrement la visière */
+    width: 45px;
+    height: 75px;
+    background: linear-gradient(135deg, #f8fafc 0%, #cbd5e1 100%);
+    border-radius: 0 35px 35px 0;
+    border: 2px solid #94a3b8;
+    border-left: 4px solid #475569;
+    box-shadow: 8px 5px 15px rgba(0,0,0,0.8);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+/* Détails sur l'oreillette (Haut-parleur et Bouton clignotant) */
+.scouter-earpiece-speaker {
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    background: #1e293b;
+    border: 2px solid #475569;
+    box-shadow: inset 0 0 8px black;
+}
+.scouter-earpiece-btn {
+    width: 18px; height: 6px;
+    background: #ef4444;
+    border-radius: 10px;
+    box-shadow: 0 0 8px #ef4444;
+    animation: scouter-blink 1.5s infinite;
+}
+
+@keyframes scouter-blink {
+    0%, 100% { opacity: 1; box-shadow: 0 0 10px #ef4444; }
+    50% { opacity: 0.4; box-shadow: 0 0 2px #ef4444; }
+}
+
+/* =========================================
+   BOUTIQUE & PACKS (Style Boosters TCG)
+   ========================================= */
+
+.gacha-pack {
+    position: relative;
+    width: 100%;
+    /* Aspect ratio vertical d'un booster de cartes */
+    aspect-ratio: 2 / 3;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #2a2a3a 0%, #1a1a25 100%);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 1;
+}
+
+/* Simulation des bandes de scellage en haut et en bas */
+.gacha-pack::before,
+.gacha-pack::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 15px;
+    background: repeating-linear-gradient(
+        45deg,
+        rgba(255, 255, 255, 0.1),
+        rgba(255, 255, 255, 0.1) 2px,
+        transparent 2px,
+        transparent 4px
+    ),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.4), transparent);
+    z-index: 20; /* Scellage au-dessus de la brillance */
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.5);
+}
+
+.gacha-pack::before {
+    top: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.gacha-pack::after {
+    bottom: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    background: repeating-linear-gradient(
+        45deg,
+        rgba(255, 255, 255, 0.1),
+        rgba(255, 255, 255, 0.1) 2px,
+        transparent 2px,
+        transparent 4px
+    ),
+    linear-gradient(to top, rgba(0, 0, 0, 0.4), transparent);
+}
+
+/* Le contenu du pack (Texte, Prix) doit passer AU-DESSUS de l'effet brillant */
+.gacha-pack-content {
+    position: relative;
+    z-index: 40 !important; 
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    justify-content: space-between;
+}
+
+/* Effet de brillance "Foil" holographique qui traverse le pack au survol */
+.gacha-pack .shine-effect {
+    position: absolute;
+    top: -50%;
+    left: -150%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        105deg,
+        transparent 40%,
+        rgba(255, 255, 255, 0.4) 45%,
+        rgba(255, 255, 255, 0.8) 50%,
+        rgba(255, 255, 255, 0.4) 55%,
+        transparent 60%
+    );
+    transform: rotate(0deg);
+    transition: all 0.7s ease-in-out;
+    pointer-events: none;
+    z-index: 30; /* Brillance sous le texte (z-index 40) mais au dessus du fond */
+    opacity: 0.7;
+}
+
+/* Animation au survol */
+.gacha-pack:hover {
+    transform: translateY(-10px) scale(1.02); /* Scale réduit pour éviter les chevauchements */
+    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.4);
+}
+
+.gacha-pack:hover .shine-effect {
+    left: 100%;
+    transition: all 0.7s ease-in-out;
+}
+
+/* --- COULEURS DE RARETÉ DES BOOSTERS --- */
+.pack-common {
+    border-color: #9ca3af;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3), inset 0 0 20px rgba(156, 163, 175, 0.2);
+}
+.pack-common:hover {
+    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.4), 0 0 30px rgba(156, 163, 175, 0.6), inset 0 0 40px rgba(156, 163, 175, 0.4);
+}
+
+.pack-rare {
+    border-color: var(--neon-cyan);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3), inset 0 0 20px rgba(0, 240, 255, 0.2);
+}
+.pack-rare:hover {
+    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.4), 0 0 40px var(--neon-cyan), inset 0 0 50px var(--neon-cyan);
+}
+
+.pack-epic {
+    border-color: var(--neon-purple);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3), inset 0 0 20px rgba(176, 38, 255, 0.2);
+}
+.pack-epic:hover {
+    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.4), 0 0 40px var(--neon-purple), inset 0 0 50px var(--neon-purple);
+}
+
+.pack-legendary {
+    border-color: var(--neon-yellow);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3), inset 0 0 20px rgba(252, 238, 10, 0.3);
+}
+.pack-legendary:hover {
+    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.4), 0 0 50px var(--neon-yellow), inset 0 0 60px var(--neon-yellow);
+}
+
+/* Animation de flottaison pour la modale */
+@keyframes floatPack {
+    0%, 100% { transform: translateY(0px) scale(1); }
+    50% { transform: translateY(-10px) scale(1); }
+}
+.anim-float {
+    animation: floatPack 3s ease-in-out infinite;
+}
+
+/* =========================================
+   ANIMATIONS D'OUVERTURE DE PACK & CARTES 3D
+   ========================================= */
+
+/* Tremblement violent quand on clique sur le pack */
+@keyframes shakePack {
+    0% { transform: scale(1.1) translateX(0) rotate(0); }
+    20% { transform: scale(1.1) translateX(-10px) rotate(-5deg); }
+    40% { transform: scale(1.1) translateX(10px) rotate(5deg); }
+    60% { transform: scale(1.1) translateX(-10px) rotate(-5deg); }
+    80% { transform: scale(1.1) translateX(10px) rotate(5deg); }
+    100% { transform: scale(1.1) translateX(0) rotate(0); }
+}
+.anim-shake {
+    animation: shakePack 0.3s ease-in-out;
+}
+
+/* État de dégâts (le pack se charge en énergie) */
+.damage-1 { filter: brightness(1.3) contrast(1.1); transform: scale(1.1); }
+.damage-2 { filter: brightness(1.6) contrast(1.2) hue-rotate(-10deg); transform: scale(1.15); box-shadow: 0 0 50px white; }
+.damage-3 { filter: brightness(2) contrast(1.5); transform: scale(1.2); box-shadow: 0 0 100px white; }
+
+/* L'Explosion (Flash blanc) */
+@keyframes explodeEffect {
+    0% { transform: scale(0); opacity: 1; }
+    40% { opacity: 1; }
+    100% { transform: scale(30); opacity: 0; }
+}
+.explosion-flash {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 100px; height: 100px;
+    margin-top: -50px; margin-left: -50px;
+    background: radial-gradient(circle, #ffffff 0%, rgba(0, 240, 255, 0.8) 40%, transparent 70%);
+    border-radius: 50%;
+    animation: explodeEffect 0.8s ease-out forwards;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+/* --- LES CARTES À RETOURNER (EFFET 3D) --- */
+.gacha-card-container {
+    perspective: 1000px; /* Donne la profondeur 3D */
+    width: 160px;
+    height: 240px;
+    cursor: pointer;
+    margin: 10px;
+}
+
+.gacha-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+    transform-style: preserve-3d; /* Permet d'avoir un recto et un verso */
+}
+
+/* La classe ajoutée par JS pour retourner la carte */
+.gacha-card-container.flipped .gacha-card-inner {
+    transform: rotateY(180deg);
+}
+
+/* Styles communs pour le recto et verso */
+.gacha-card-front, .gacha-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden; /* Cache le dos de la face opposée */
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Le Dos de la carte (Visible en premier) */
+.gacha-card-back {
+    background: repeating-linear-gradient(45deg, #1e293b, #1e293b 10px, #0f172a 10px, #0f172a 20px);
+    border: 3px solid var(--neon-cyan);
+    background-size: cover;
+}
+
+/* La Face de la carte (Cachée au début) */
+.gacha-card-front {
+    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+    border: 3px solid var(--neon-yellow);
+    transform: rotateY(180deg);
+    padding: 10px;
+    text-align: center;
+}
+
+/* =========================================
+   CARTE DÉTAILLÉE (MODALE COLLECTION)
+   ========================================= */
+
+.detailed-card-container {
+    perspective: 1500px;
+    width: 320px;
+    height: 480px;
+    margin: 0 auto;
+    cursor: pointer;
+}
+
+.detailed-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Effet rebond */
+    transform-style: preserve-3d;
+}
+
+/* Bascule la carte quand la classe 'flipped' est ajoutée par le JS */
+.detailed-card-container.flipped .detailed-card-inner {
+    transform: rotateY(180deg);
+}
+
+.detailed-card-front, .detailed-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 16px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+    overflow: hidden;
+}
+
+/* RECTO : Visuel et Stats */
+.detailed-card-front {
+    border: 2px solid var(--neon-cyan);
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Pousse le contenu vers le bas */
+}
+
+/* Dégradé sombre en bas pour rendre les stats lisibles sur l'image */
+.detailed-card-overlay {
+    background: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 40%, transparent 100%);
+    padding: 20px;
+    width: 100%;
+}
+
+/* VERSO : Les Affinités (Liens) */
+.detailed-card-back {
+    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+    border: 2px solid var(--neon-purple);
+    transform: rotateY(180deg);
+    display: flex;
+    flex-direction: column;
+    padding: 25px;
+}
+
+.stat-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.affinity-tag {
+    background: rgba(176, 38, 255, 0.2);
+    border: 1px solid var(--neon-purple);
+    color: #e9d5ff;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}

@@ -1,0 +1,18 @@
+spring:
+  profiles:
+    active: neon
+  application:
+    name: fifa-ultimate-team
+  datasource:
+    url: jdbc:postgresql://ep-nameless-flower-agysqoez-pooler.c-2.eu-central-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require&prepareThreshold=0
+    username: neondb_owner
+    password: npg_CiH6gyt3TwJG
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: true
